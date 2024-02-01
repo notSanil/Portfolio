@@ -15,6 +15,14 @@
     }
 }
 
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
 body {
     animation: background-pan 10s linear infinite;
     background: linear-gradient(to right,
@@ -35,7 +43,7 @@ body.toggled>#title {
     opacity: 0;
 }
 
-body.toggled>#icon {
+body.toggled>#secondary {
     opacity: 1;
 }
 
@@ -48,6 +56,13 @@ body.toggled>#tiles>.tile:hover {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.top-center {
+    left: 50%;
+    position: absolute;
+    top: 0%;
+    transform: translate(-50%, 0%);
 }
 
 #tiles {
@@ -95,7 +110,7 @@ body.toggled>#tiles>.tile:hover {
     line-height: 0.9em;
 }
 
-#icon {
+#secondary {
     color: rgb(255, 255, 255);
     font-size: 10vmin;
     opacity: 0;
@@ -105,56 +120,38 @@ body.toggled>#tiles>.tile:hover {
     font-family: "Rubik", sans-serif;
 }
 
-/* -- YouTube Link Styles -- */
-
-body.menu-toggled>.meta-link>span {
-    color: rgb(30, 30, 30);
-}
-
-#source-link {
-    bottom: 60px;
-}
-
-#source-link>i {
-    color: rgb(94, 106, 210);
-}
-
-#yt-link>i {
-    color: rgb(239, 83, 80);
-}
-
-.meta-link {
+#navbar {
+    display: flex;
     align-items: center;
-    backdrop-filter: blur(3px);
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    bottom: 10px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    display: inline-flex;
-    gap: 5px;
-    left: 10px;
-    padding: 10px 20px;
-    position: fixed;
-    text-decoration: none;
-    transition: background-color 400ms, border-color 400ms;
-    z-index: 10000;
+    justify-content: space-between;
+    padding: 0px 2vw;
+    background-color: teal;
+    color: #fff;
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
 }
 
-.meta-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+.logo {
+    font-size: 32px;
 }
 
-.meta-link>i,
-.meta-link>span {
-    height: 20px;
-    line-height: 20px;
+.nav-links a {
+    color: #fff;
 }
 
-.meta-link>span {
-    color: white;
-    font-family: "Rubik", sans-serif;
-    transition: color 400ms;
-}
+.menu {
+    display: flex;
+    gap: 1em;
+    font-size: 18px;
+  }
+  
+  .menu li:hover {
+    background-color: #4c9e9e;
+    border-radius: 5px;
+    transition: 0.3s ease;
+  }
+  
+  .menu li {
+    padding: 5px 14px;
+  }
