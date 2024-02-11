@@ -1,5 +1,8 @@
 import type { Config } from "tailwindcss";
 
+const titlePrimary = '#6200ea';
+const titleSecondary = '#ec407a';
+
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,11 +11,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      keyframes: {
+        pan: {
+          '0%' : {backgroundPosition: '0% center'},
+          '100%': {backgroundPosition: '-200% center'}
+        }
       },
+      animation: {
+        pan: 'pan 10s linear infinite'
+      },
+      colors: {
+        'titlePrimary': titlePrimary,
+        'titleSecondary': titleSecondary
+      }
     },
   },
   plugins: [],
