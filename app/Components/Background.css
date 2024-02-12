@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+div.stopped {
+    animation: none;
+}
+
+div.stopped>div>div:hover {
+    opacity: 0.1 !important;
+}

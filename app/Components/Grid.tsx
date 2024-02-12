@@ -2,8 +2,13 @@
 import Tile from "./GridTile";
 import { useState, useEffect } from "react";
 
-export default function Grid() {
+interface GridProps {
+    callback: () => void
+}
+
+export default function Grid({callback}: GridProps) {
     const [windowDimensions, setWindowDimensions] = useState({ width: 1080, height: 720 });
+    const [visible, setVisible] = useState(true);
 
     useEffect(() => {
         const handleResize = () => {
@@ -21,15 +26,16 @@ export default function Grid() {
     const numRows = Math.floor(windowDimensions.width / 100);
     const numCols = Math.floor(windowDimensions.height / 100);
 
-    const tileWidth = windowDimensions.width / numRows;
-    const tileHeight = windowDimensions.height / numCols;
-
     const renderTile = (key: number) => {
         return (
             <Tile
-                height={tileHeight}
-                width={tileWidth}
                 key={key}
+                callback={()=>{
+                    console.log(key);
+                    setVisible(!visible);
+                    callback();
+                }}
+                visible={visible}
             />
         );
     };

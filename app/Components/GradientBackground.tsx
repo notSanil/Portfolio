@@ -1,9 +1,12 @@
+import "./Background.css";
+
 interface GradientBackgroundProps {
     colors: string[],
-    children?: any
+    children?: any,
+    enabled: boolean
 }
 
-export default function GradientBackground({ colors, children }: GradientBackgroundProps) {
+export default function GradientBackground({ colors, children, enabled }: GradientBackgroundProps) {
     const gradientColors = colors.join(', ');
 
     const gradientStyle: React.CSSProperties = {
@@ -13,7 +16,7 @@ export default function GradientBackground({ colors, children }: GradientBackgro
     };
 
     return (
-        <div className="h-screen w-screen flex absolute animate-pan inset-0" style={gradientStyle}>
+        <div className={"h-screen w-screen flex absolute animate-pan inset-0 " + (enabled ? "" : "stopped")} style={gradientStyle}>
                 {children}
         </div>
     );
