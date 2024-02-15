@@ -1,5 +1,5 @@
 "use client"
-import { stagger, useAnimate, motion } from "framer-motion";
+import { stagger, useAnimate, motion, distance } from "framer-motion";
 import Tile from "./GridTile";
 import { useState, useEffect } from "react";
 
@@ -14,50 +14,50 @@ export default function Grid({ callback }: GridProps) {
 
     const [scope, animate] = useAnimate();
 
-    // useEffect(() => {
-    //     const handleResize = () => {
-    //         setWindowDimensions({ width: window.innerWidth, height: window.innerHeight });
-    //     };
-    //     handleResize();
-
-    //     window.addEventListener('resize', handleResize);
-
-
-    //     return () => {
-    //         window.removeEventListener('resize', handleResize);
-    //     };
-    // }, []);
-
     useEffect(() => {
         const handleResize = () => {
             setWindowDimensions({ width: window.innerWidth, height: window.innerHeight });
         };
         handleResize();
+
         window.addEventListener('resize', handleResize);
 
-        const tileRefs = document.querySelectorAll(".tile");
-        console.log(tileRefs);
-
-        animate(
-            ".tile",
-            visible
-                ? { opacity: 1 }
-                : { opacity: 0 },
-            {
-                duration: 1,
-                delay: stagger(
-                    0.01,
-                    {
-                        from: key,
-                    }
-                )
-            }
-        );
 
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [visible]);
+    }, []);
+
+    useEffect(() => {
+        const centerTileIndex = key;
+        const centerTileX = centerTileIndex % numRows;
+        const centerTileY = Math.floor(centerTileIndex / numRows);
+
+        const distance = (x1: number, y1: number, x2: number, y2: number) => {
+            return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        };
+
+
+        const tileRefs = document.querySelectorAll(".tile");
+        tileRefs.forEach(
+            (tileRef, index) => {
+                const tileX = index % numRows;
+                const tileY = Math.floor(index / numRows);
+
+                const dist = distance(centerTileX, centerTileY, tileX, tileY);
+                const delayTime = dist * 0.05;
+
+                animate(
+                    tileRef,
+                    visible ? { opacity: 1 } : { opacity: 0 },
+                    {
+                        duration: 1,
+                        delay: delayTime,
+                    }
+                );
+            }
+        );
+    }, [visible, windowDimensions]);
 
     const numRows = Math.floor(windowDimensions.width / 100);
     const numCols = Math.floor(windowDimensions.height / 100);
