@@ -1,5 +1,5 @@
 "use client"
-import { stagger, useAnimate, motion, distance } from "framer-motion";
+import { useAnimate } from "framer-motion";
 import Tile from "./GridTile";
 import { useState, useEffect } from "react";
 
@@ -51,7 +51,7 @@ export default function Grid({ callback }: GridProps) {
                     tileRef,
                     visible ? { opacity: 1 } : { opacity: 0 },
                     {
-                        duration: 1,
+                        duration: 250 / 1000,
                         delay: delayTime,
                     }
                 );
