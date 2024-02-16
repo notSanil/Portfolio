@@ -10,7 +10,7 @@ export default function GradientBackground({ colors, children, enabled }: Gradie
     const gradientColors = colors.join(', ');
 
     const gradientStyle: React.CSSProperties = {
-        zIndex: -1,
+        zIndex: -2,
         background: `linear-gradient(90deg, ${gradientColors})`,
         backgroundSize: '200% 200%',
     };

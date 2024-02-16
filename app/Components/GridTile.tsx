@@ -4,8 +4,6 @@ interface TileProps {
 
 
 function Tile({ callback }: TileProps) {
-    const marginSize: number = 0.7;
-
     return (
         <div
             style={{
