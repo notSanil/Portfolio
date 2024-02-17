@@ -9,7 +9,6 @@ interface GridProps {
 
 export default function Grid({ callback }: GridProps) {
     const [windowDimensions, setWindowDimensions] = useState({ width: 1080, height: 720 });
-    const [visible, setVisible] = useState(true);
     const [key, setKey] = useState(0);
 
     const [scope, animate] = useAnimate();
@@ -48,7 +47,7 @@ export default function Grid({ callback }: GridProps) {
 
                 animate(
                     tileRef,
-                    visible ? { opacity: 1 } : { opacity: 0 },
+                    isPresent ? { opacity: 1 } : { opacity: 0 },
                     {
                         duration: 250 / 1000,
                         delay: delayTime,
@@ -56,7 +55,7 @@ export default function Grid({ callback }: GridProps) {
                 );
             }
         );
-    }, [visible, windowDimensions]);
+    }, [isPresent, windowDimensions]);
 
     useEffect(() => {
         if (!isPresent) {
@@ -73,7 +72,19 @@ export default function Grid({ callback }: GridProps) {
             }
 
             exitAnimation();
+        } else {
+            const entryAnimation = async () => {
+                await animate(
+                    scope.current,
+                    {opacity: 1},
+                    {
+                        duration: 1000 / 1000
+                    }
+                );
+            }
+            entryAnimation();
         }
+
     }, [isPresent]
 
     )
@@ -86,7 +97,6 @@ export default function Grid({ callback }: GridProps) {
             <Tile
                 key={key}
                 callback={() => {
-                    setVisible(!visible);
                     setKey(key);
                     callback();
                 }}

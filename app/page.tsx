@@ -33,7 +33,7 @@ export default function Home() {
           <span className={`${dancingScript.className} text-[2em]/[0.9em] text-titleSecondary -translate-x-0`}> Sanil</span>
         </h1>
 
-        <Navigation />
+        <Navigation callback={tileClickCallback}/>
       </GradientBackground>
     </main>
   );
