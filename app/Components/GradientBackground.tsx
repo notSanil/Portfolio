@@ -1,4 +1,4 @@
-import "./Background.css";
+import "./GradientBackground.css";
 
 interface GradientBackgroundProps {
     colors: string[],

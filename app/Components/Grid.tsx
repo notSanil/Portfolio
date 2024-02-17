@@ -1,5 +1,5 @@
 "use client"
-import { useAnimate } from "framer-motion";
+import { useAnimate, usePresence } from "framer-motion";
 import Tile from "./GridTile";
 import { useState, useEffect } from "react";
 
@@ -13,6 +13,7 @@ export default function Grid({ callback }: GridProps) {
     const [key, setKey] = useState(0);
 
     const [scope, animate] = useAnimate();
+    const [isPresent, safeToRemove] = usePresence();
 
     useEffect(() => {
         const handleResize = () => {
@@ -21,8 +22,6 @@ export default function Grid({ callback }: GridProps) {
         handleResize();
 
         window.addEventListener('resize', handleResize);
-
-
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -58,6 +57,26 @@ export default function Grid({ callback }: GridProps) {
             }
         );
     }, [visible, windowDimensions]);
+
+    useEffect(() => {
+        if (!isPresent) {
+            const exitAnimation = async () => {
+                await animate(
+                    scope.current,
+                    { opacity: 0 },
+                    {
+                        duration: 250 / 1000,
+                        delay: 750 / 1000
+                    }
+                );
+                safeToRemove();
+            }
+
+            exitAnimation();
+        }
+    }, [isPresent]
+
+    )
 
     const numRows = Math.floor(windowDimensions.width / 100);
     const numCols = Math.floor(windowDimensions.height / 100);

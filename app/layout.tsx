@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
-import Navbar from "./Components/Navbar";
 
-const rubik = Rubik({ subsets: ["latin"], weight: "700"});
+const rubik = Rubik({ subsets: ["latin"], weight: "700" });
 
 export const metadata: Metadata = {
   title: "Sanil Gupta",
