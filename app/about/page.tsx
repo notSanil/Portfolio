@@ -3,7 +3,7 @@ import GradientBackground from "../Components/GradientBackground";
 import profilePic from "../../public/next.svg";
 import Link from "next/link";
 import { Glegoo } from "next/font/google";
-import Navbar from "../Components/Navbar";
+import Navbar, { Pages } from "../Components/Navbar";
 
 const glegoo = Glegoo({ subsets: ["latin"], weight: "400" });
 
@@ -13,7 +13,7 @@ export default function AboutMe() {
 
   return (
     <main>
-      <Navbar page="about" />
+      <Navbar page={Pages.About} />
       <GradientBackground
         colors={[primaryTextColor, secondaryTextColor, primaryTextColor]}
         enabled={false}

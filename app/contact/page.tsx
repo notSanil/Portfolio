@@ -1,13 +1,13 @@
 import Link from "next/link";
 import GradientBackground from "../Components/GradientBackground";
-import Navbar from "../Components/Navbar";
+import Navbar, { Pages } from "../Components/Navbar";
 
 export default function Contact() {
   const primaryTextColor: string = "#6200ea";
   const secondaryTextColor: string = "#ec407a";
   return (
     <main>
-      <Navbar page="contact" />
+      <Navbar page={Pages.Contact} />
       <GradientBackground
         colors={[primaryTextColor, secondaryTextColor, primaryTextColor]}
         enabled={false}

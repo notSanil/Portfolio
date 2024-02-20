@@ -1,7 +1,14 @@
 import Link from "next/link";
 
 interface NavbarProps {
-  page: string;
+  page: Pages;
+}
+
+export enum Pages {
+  About,
+  Blogs,
+  Projects,
+  Contact,
 }
 
 export default function Navbar({ page }: NavbarProps) {
@@ -15,7 +22,9 @@ export default function Navbar({ page }: NavbarProps) {
         <li
           className={
             "inline-block p-3 mx-1 " +
-            (page === "about" ? "bg-white bg-opacity-20" : "hover:opacity-50")
+            (page === Pages.About
+              ? "bg-white bg-opacity-20"
+              : "hover:opacity-50")
           }
         >
           <Link href="/about">About</Link>
@@ -23,7 +32,9 @@ export default function Navbar({ page }: NavbarProps) {
         <li
           className={
             "inline-block p-3 mx-1 " +
-            (page === "blogs" ? "bg-white bg-opacity-20" : "hover:opacity-50")
+            (page === Pages.Blogs
+              ? "bg-white bg-opacity-20"
+              : "hover:opacity-50")
           }
         >
           <Link href="/blogs">Blogs</Link>
@@ -31,7 +42,7 @@ export default function Navbar({ page }: NavbarProps) {
         <li
           className={
             "inline-block p-3 mx-1 " +
-            (page === "projects"
+            (page === Pages.Projects
               ? "bg-white bg-opacity-20"
               : "hover:opacity-50")
           }
@@ -41,7 +52,9 @@ export default function Navbar({ page }: NavbarProps) {
         <li
           className={
             "inline-block p-3 mx-1 " +
-            (page === "contact" ? "bg-white bg-opacity-20" : "hover:opacity-50")
+            (page === Pages.Contact
+              ? "bg-white bg-opacity-20"
+              : "hover:opacity-50")
           }
         >
           <Link href="/contact">Contact</Link>
