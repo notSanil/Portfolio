@@ -13,7 +13,7 @@ export enum Pages {
 
 export default function Navbar({ page }: NavbarProps) {
   return (
-    <nav className="bg-black text-white sticky top-0 flex flex-row justify-between">
+    <nav className="bg-black text-white sticky top-0 flex flex-row justify-between z-10">
       <div className="p-3 ml-4">
         <Link href="/">Sanil Gupta</Link>
       </div>
