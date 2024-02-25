@@ -1,19 +1,14 @@
 import Link from "next/link";
-import GradientBackground from "../Components/GradientBackground";
 import Navbar, { Pages } from "../Components/Navbar";
+import Footer from "../Components/Footer";
 
 export default function Contact() {
-  const primaryTextColor: string = "#6200ea";
-  const secondaryTextColor: string = "#ec407a";
   return (
-    <main>
+    <main className="flex flex-col min-h-screen">
       <Navbar page={Pages.Contact} />
-      <GradientBackground
-        colors={[primaryTextColor, secondaryTextColor, primaryTextColor]}
-        enabled={false}
-      >
-        <div className="h-full w-full flex flex-col text-center text-white">
-          <div className="relative mt-12">
+      <div className="bg-slate-200 p-4 pb-8">
+        <div className="h-full w-full flex flex-col text-center">
+          <div className="relative">
             <span className="material-symbols-outlined text-9xl">
               waving_hand
             </span>
@@ -31,7 +26,8 @@ export default function Contact() {
             Say Hello
           </Link>
         </div>
-      </GradientBackground>
+      </div>
+      <Footer />
     </main>
   );
 }

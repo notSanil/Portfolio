@@ -12,14 +12,10 @@ export default function AboutMe() {
   const secondaryTextColor: string = "#ec407a";
 
   return (
-    <main>
+    <main className="flex flex-col min-h-screen">
       <Navbar page={Pages.About} />
-      <GradientBackground
-        colors={[primaryTextColor, secondaryTextColor, primaryTextColor]}
-        enabled={false}
-        className={`flex-col ${glegoo.className}`}
-      >
-        <h1 className="text-center w-full mt-12 text-[3.5vw] text-white">
+      <div className="bg-slate-200 p-4 text-center flex-1">
+        <h1 className="text-center w-full text-[3.5vw]">
           A little bit about me
         </h1>
         <Image
@@ -27,16 +23,16 @@ export default function AboutMe() {
           alt="Sanil"
           width={100}
           height={100}
-          className="self-center rounded-full"
+          className="self-center rounded-full left-1/2 relative -translate-x-1/2"
         />
-        <p className="relative text-center text-white w-1/2 left-1/4 my-4 text-[1.4vw]">
+        <p className="relative text-center w-1/2 left-1/4 my-4 text-[1.4vw]">
           Hi! My name is Sanil, and I am a software developer with a passion for
           back-end development, & graphics. I am currently a fourth-year student
           at{" "}
           <Link
             href="https://pec.ac.in/"
             target="_blank"
-            className="text-green-300"
+            className="text-red-500"
           >
             Punjab Engineering College{" "}
           </Link>
@@ -44,7 +40,7 @@ export default function AboutMe() {
           <Link
             href="https://pec.ac.in/cse"
             target="_blank"
-            className="text-green-300"
+            className="text-red-500"
           >
             Computer Science.
           </Link>{" "}
@@ -54,7 +50,7 @@ export default function AboutMe() {
           <br></br>
           When I am not coding, I enjoy video games, petting dogs, and cycling.
         </p>
-        <div className="text-white text-center bg-slate-200 bg-opacity-20 w-1/2 left-1/4 relative mb-4 rounded-sm">
+        <div className="text-center bg-slate-800 bg-opacity-20 w-1/2 left-1/4 relative mb-4 rounded-sm">
           <h1 className="text-[1.875vw]">TL;DR? Self Proclamations</h1>
           <div className="flex flex-row relative justify-between">
             <div className="m-2 grow basis-0 overflow-hidden">
@@ -83,7 +79,7 @@ export default function AboutMe() {
             </div>
           </div>
         </div>
-      </GradientBackground>
+      </div>
     </main>
   );
 }
