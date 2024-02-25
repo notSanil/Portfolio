@@ -31,9 +31,10 @@ export default function Blog({ params }: BlogParams) {
         </div>
         <Markdown
           remarkPlugins={[remarkBreaks]}
-          children={post.content}
           className={`${style.reactMarkdown} text-zinc-100`}
-        />
+        >
+          {post.content}
+        </Markdown>
       </div>
     </main>
   );
