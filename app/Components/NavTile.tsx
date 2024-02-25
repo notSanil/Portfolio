@@ -19,11 +19,14 @@ export default function NavTile({
 }: NavTileParams) {
   return (
     <div
-      className={`relative ${colStart} ${colEnd} ${rowStart} ${rowEnd} bg-white opacity-100 bg-opacity-15 hover:bg-black hover:bg-opacity-15 underline decoration-2 decoration-white underline-offset-auto m-2 rounded-sm`}
+      className={
+        `relative ${colStart} ${colEnd} ${rowStart} ${rowEnd} bg-white opacity-100 bg-opacity-15 underline decoration-2 decoration-white underline-offset-auto m-2 rounded-sm ` +
+        (link.length > 0 ? "hover:bg-black hover:bg-opacity-15" : null)
+      }
     >
       {link.length > 0 ? (
         <Link href={link} className="h-full w-full inline-block">
-          <h1 className="m-4 text-4xl text-white">{children}</h1>
+          <h1 className="m-4 text-4xl text-zinc-100">{children}</h1>
         </Link>
       ) : (
         children

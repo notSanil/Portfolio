@@ -1,12 +1,20 @@
 import NavTile from "./NavTile";
+import logo from "@/public/logo.svg";
+import Image from "next/image";
 
 interface NavigationProps {
   callback: () => void;
+  enabled: boolean;
 }
 
-export default function Navigation({ callback }: NavigationProps) {
+export default function Navigation({ callback, enabled }: NavigationProps) {
   return (
-    <div className="absolute -z-[1] h-screen w-screen grid grid-cols-3 grid-rows-3 overflow-hidden">
+    <div
+      className={
+        "absolute -z-[1] h-screen w-screen grid grid-cols-3 transition-opacity duration-500 grid-rows-3 overflow-hidden " +
+        (enabled ? null : "opacity-0")
+      }
+    >
       <NavTile
         link="/about"
         colStart="col-start-1"
@@ -54,7 +62,11 @@ export default function Navigation({ callback }: NavigationProps) {
         rowStart="row-start-2"
         rowEnd="row-end-3"
       >
-        <div onClick={callback} className="w-full h-full"></div>
+        <Image
+          src={logo}
+          alt="Sanil"
+          className="h-full left-1/2 relative p-4 -translate-x-1/2"
+        />
       </NavTile>
     </div>
   );

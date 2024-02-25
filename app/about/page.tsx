@@ -1,5 +1,5 @@
 import Image from "next/image";
-import profilePic from "@/public/next.svg";
+import profilePic from "@/public/ProfilePic-square.png";
 import Link from "next/link";
 import Navbar, { Pages } from "../Components/Navbar";
 
@@ -14,9 +14,7 @@ export default function AboutMe() {
         <Image
           src={profilePic}
           alt="Sanil"
-          width={100}
-          height={100}
-          className="self-center rounded-full left-1/2 relative -translate-x-1/2"
+          className="self-center rounded-full left-1/2 relative -translate-x-1/2 w-40 h-40"
         />
         <p className="relative text-center w-1/2 left-1/4 my-4 text-[1.4vw]">
           Hi! My name is Sanil, and I am a software developer with a passion for

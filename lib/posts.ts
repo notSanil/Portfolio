@@ -42,7 +42,12 @@ export function getSortedPostsData() {
 
 export function getPostFromSlug(slug: string) {
   const filepath = path.join(postsDirectory, `${slug}.md`);
-  const fileContents = fs.readFileSync(filepath, 'utf-8');
-  const {data, content} = matter(fileContents);
-  return {...data, content} as Post;
+  var fileContents: string;
+  try {
+    fileContents = fs.readFileSync(filepath, "utf-8");
+  } catch (err) {
+    return null;
+  }
+  const { data, content } = matter(fileContents);
+  return { ...data, content } as Post;
 }

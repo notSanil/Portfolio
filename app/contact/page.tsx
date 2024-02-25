@@ -6,9 +6,9 @@ export default function Contact() {
   return (
     <main className="flex flex-col min-h-screen">
       <Navbar page={Pages.Contact} />
-      <div className="bg-primary p-4 pb-8 text-zinc-100">
+      <div className="relative bg-primary p-4 pb-8 text-zinc-100 min-h-[70vh]">
         <div className="h-full w-full flex flex-col text-center">
-          <div className="relative">
+          <div className="relative mt-[2vh]">
             <span className="material-symbols-outlined text-9xl">
               waving_hand
             </span>

@@ -3,6 +3,7 @@ import { getPostFromSlug, getSortedPostsData } from "@/lib/posts";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import style from "./markdown-styles.module.css";
+import { notFound } from "next/navigation";
 
 interface BlogParams {
   params: { slug: string };
@@ -18,6 +19,8 @@ export default function Blog({ params }: BlogParams) {
   const { slug } = params;
 
   const post = getPostFromSlug(slug);
+
+  if (!post) return notFound();
 
   return (
     <main className="min-h-screen flex flex-col">

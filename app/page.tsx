@@ -11,8 +11,8 @@ const dancingScript = Dancing_Script({ subsets: ["latin"], weight: "700" });
 export default function Home() {
   const [enabled, setEnabled] = useState(true);
 
-  const primaryTextColor: string = "#6200ea";
-  const secondaryTextColor: string = "#ec407a";
+  const primaryTextColor: string = "#1C6E55";
+  const secondaryTextColor: string = "#1c5e6e";
 
   const tileClickCallback = () => {
     setEnabled(!enabled);
@@ -36,14 +36,14 @@ export default function Home() {
         >
           Hi! My name is <br></br>
           <span
-            className={`${dancingScript.className} text-[2em]/[0.9em] text-titleSecondary -translate-x-0`}
+            className={`${dancingScript.className} text-[2em]/[0.9em] text-blue-chill-bright -translate-x-0`}
           >
             {" "}
             Sanil
           </span>
         </h1>
 
-        <Navigation callback={tileClickCallback} />
+        {<Navigation callback={tileClickCallback} enabled={!enabled} />}
       </GradientBackground>
     </main>
   );
