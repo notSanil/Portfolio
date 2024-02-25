@@ -6,7 +6,7 @@ export default function Contact() {
   return (
     <main className="flex flex-col min-h-screen">
       <Navbar page={Pages.Contact} />
-      <div className="bg-slate-200 p-4 pb-8">
+      <div className="bg-primary p-4 pb-8 text-zinc-100">
         <div className="h-full w-full flex flex-col text-center">
           <div className="relative">
             <span className="material-symbols-outlined text-9xl">
@@ -21,7 +21,7 @@ export default function Contact() {
 
           <Link
             href="mailto:sanilg566@gmail.com"
-            className="relative text-center border-2 text-xl px-4 py-2 border-black w-fit self-center hover:bg-blue-300 hover:text-black hover:border-blue-300 ease-in-out transition-colors duration-500"
+            className="rounded relative text-center border-2 text-xl px-4 py-2 border-blue-chill-300 text-blue-chill-300 w-fit self-center hover:bg-blue-chill-700 ease-in-out transition-colors duration-500"
           >
             Say Hello
           </Link>

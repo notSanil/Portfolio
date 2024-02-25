@@ -1,20 +1,13 @@
 import Image from "next/image";
-import GradientBackground from "../Components/GradientBackground";
-import profilePic from "../../public/next.svg";
+import profilePic from "@/public/next.svg";
 import Link from "next/link";
-import { Glegoo } from "next/font/google";
 import Navbar, { Pages } from "../Components/Navbar";
 
-const glegoo = Glegoo({ subsets: ["latin"], weight: "400" });
-
 export default function AboutMe() {
-  const primaryTextColor: string = "#6200ea";
-  const secondaryTextColor: string = "#ec407a";
-
   return (
     <main className="flex flex-col min-h-screen">
       <Navbar page={Pages.About} />
-      <div className="bg-slate-200 p-4 text-center flex-1">
+      <div className="bg-primary p-4 text-center flex-1 text-zinc-100">
         <h1 className="text-center w-full text-[3.5vw]">
           A little bit about me
         </h1>
@@ -32,7 +25,7 @@ export default function AboutMe() {
           <Link
             href="https://pec.ac.in/"
             target="_blank"
-            className="text-red-500"
+            className="text-blue-chill-400"
           >
             Punjab Engineering College{" "}
           </Link>
@@ -40,7 +33,7 @@ export default function AboutMe() {
           <Link
             href="https://pec.ac.in/cse"
             target="_blank"
-            className="text-red-500"
+            className="text-blue-chill-400"
           >
             Computer Science.
           </Link>{" "}
@@ -50,36 +43,42 @@ export default function AboutMe() {
           <br></br>
           When I am not coding, I enjoy video games, petting dogs, and cycling.
         </p>
-        <div className="text-center bg-slate-800 bg-opacity-20 w-1/2 left-1/4 relative mb-4 rounded-sm">
-          <h1 className="text-[1.875vw]">TL;DR? Self Proclamations</h1>
-          <div className="flex flex-row relative justify-between">
-            <div className="m-2 grow basis-0 overflow-hidden">
-              <div>
-                <span className="material-symbols-outlined text-[4.688vw]">
-                  keyboard
-                </span>
-              </div>
-              Software developer
-            </div>
-            <div className="m-2">
-              <div>
-                <span className="material-symbols-outlined text-[4.688vw]">
-                  stadia_controller
-                </span>
-              </div>
-              Gamer
-            </div>
-            <div className="m-2 grow basis-0 overflow-hidden">
-              <div>
-                <span className="material-symbols-outlined text-[4.688vw]">
-                  directions_bike
-                </span>
-              </div>
-              Cyclist
-            </div>
-          </div>
-        </div>
+        <SelfProclamations />
       </div>
     </main>
+  );
+}
+
+function SelfProclamations() {
+  return (
+    <div className="text-center bg-blue-chill-950 bg-opacity-20 w-1/2 left-1/4 relative mb-4 rounded-sm text-zinc-100 border-blue-chill-600 border">
+      <h1 className="text-[1.875vw]">TL;DR? Self Proclamations</h1>
+      <div className="flex flex-row relative justify-between">
+        <div className="m-2 grow basis-0 overflow-hidden">
+          <div>
+            <span className="material-symbols-outlined text-[4.688vw]">
+              keyboard
+            </span>
+          </div>
+          Software developer
+        </div>
+        <div className="m-2">
+          <div>
+            <span className="material-symbols-outlined text-[4.688vw]">
+              stadia_controller
+            </span>
+          </div>
+          Gamer
+        </div>
+        <div className="m-2 grow basis-0 overflow-hidden">
+          <div>
+            <span className="material-symbols-outlined text-[4.688vw]">
+              directions_bike
+            </span>
+          </div>
+          Cyclist
+        </div>
+      </div>
+    </div>
   );
 }

@@ -7,60 +7,54 @@ import codeforces from "./Icons/codeforces.svg";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 min-h-16 flex-1 text-white">
+    <footer className="bg-blue-chill-950 border-t border-blue-chill-600 min-h-16 flex-1 text-white">
       <ul className="text-center mt-6">
-        <li className="inline-block m-2">
-          <Link href="https://github.com/notSanil" target="_blank">
-            <Image
-              src={github}
-              alt="Github"
-              width={40}
-              height={40}
-              className="bg-gray-500 p-2 rounded-sm hover:bg-gray-700"
-            />
-          </Link>
-        </li>
-        <li className="inline-block m-2">
-          <Link href="https://codeforces.com/profile/notSanil" target="_blank">
-            <Image
-              src={codeforces}
-              alt="Codeforces"
-              height={40}
-              width={40}
-              className="bg-gray-500 p-2 rounded-sm hover:bg-gray-700"
-            />
-          </Link>
-        </li>
-        <li className="inline-block m-2">
-          <Link
-            href="https://www.linkedin.com/in/sanil-gupta-2871621b9/"
-            target="_blank"
-          >
-            <Image
-              src={linkedin}
-              alt="LinkedIn"
-              height={40}
-              width={40}
-              className="bg-gray-500 p-2 rounded-sm hover:bg-gray-700"
-            />
-          </Link>
-        </li>
-        <li className="inline-block m-2">
-          <Link href="https://www.instagram.com/notsanil012" target="_blank">
-            <Image
-              src={instagram}
-              alt="Instagram"
-              height={40}
-              width={40}
-              className="bg-gray-500 p-2 rounded-sm hover:bg-gray-700"
-            />
-          </Link>
-        </li>
+        <FooterButton
+          link="https://github.com/notSanil"
+          src={github}
+          alt="Github"
+        />
+        <FooterButton
+          link="https://codeforces.com/profile/notSanil"
+          src={codeforces}
+          alt="Codeforces"
+        />
+        <FooterButton
+          link="https://www.linkedin.com/in/sanil-gupta-2871621b9/"
+          src={linkedin}
+          alt="LinkedIn"
+        />
+        <FooterButton
+          link="https://www.instagram.com/notsanil012"
+          src={instagram}
+          alt="Instagram"
+        />
       </ul>
 
       <div className="text-center">
         <small>© Sanil Gupta {new Date().getFullYear()}</small>
       </div>
     </footer>
+  );
+}
+
+interface FooterButtonProps {
+  src: any;
+  alt: string;
+  link: string;
+}
+
+function FooterButton({ src, alt, link }: FooterButtonProps) {
+  return (
+    <li className="inline-block m-2">
+      <Link href={link} target="_blank">
+        <Image
+          src={src}
+          alt={alt}
+          height={40}
+          className="border border-blue-chill-600 p-2 rounded hover:bg-blue-chill-800"
+        />
+      </Link>
+    </li>
   );
 }

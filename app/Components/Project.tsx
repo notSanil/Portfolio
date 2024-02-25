@@ -36,17 +36,17 @@ export default function Project({
   }
 
   return (
-    <div className="relative grid grid-cols-2 left-[12.5%] w-3/4 mt-4 p-1">
+    <div className="relative grid grid-cols-2 left-[12.5%] w-3/4 mt-4 p-1 text-zinc-100">
       {direction == Direction.Left ? createImage() : null}
 
-      <div>
+      <div className="p-2">
         <p className="p-1 text-justify pt-4">
-          <b className="text-lg">{name}</b> - {description}
+          <b className="text-xl text-blue-chill-400">{name}</b> - {description}
         </p>
 
         <Link
           href={link}
-          className="p-1 text-xl px-4 border-b border-black transition-all duration-500 hover:bg-blue-700"
+          className="p-1 text-xl text-blue-chill-950 px-4 bg-blue-chill-400 rounded transition-all duration-500 hover:bg-blue-chill-300"
         >
           View{" "}
         </Link>

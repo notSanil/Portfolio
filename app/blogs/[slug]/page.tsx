@@ -20,14 +20,16 @@ export default function Blog({ params }: BlogParams) {
   const post = getPostFromSlug(slug);
 
   return (
-    <main>
+    <main className="min-h-screen flex flex-col">
       <Navbar page={Pages.Blogs} />
-      <div className="p-4 px-10">
-        <div className="text-center text-5xl mb-4">{post.title}</div>
+      <div className="p-4 px-10 bg-primary flex-grow flex-shrink-0">
+        <div className="text-center text-5xl mb-4 text-zinc-100">
+          {post.title}
+        </div>
         <Markdown
           remarkPlugins={[remarkBreaks]}
           children={post.content}
-          className={style.reactMarkdown}
+          className={`${style.reactMarkdown} text-zinc-100`}
         />
       </div>
     </main>

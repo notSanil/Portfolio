@@ -1,17 +1,17 @@
 import Navbar, { Pages } from "../Components/Navbar";
 import Project, { Direction } from "../Components/Project";
-import acmImage from "../../public/ACMWebsite.png";
-import codeZone from "../../public/CodeZone.png";
-import sage from "../../public/Sage.png";
-import mapGen from "../../public/MapGen.png";
+import acmImage from "@/public/ACMWebsite.png";
+import codeZone from "@/public/CodeZone.png";
+import sage from "@/public/Sage.png";
+import mapGen from "@/public/MapGen.png";
 
 export default function Projects() {
   return (
     <main>
       <Navbar page={Pages.Projects} />
 
-      <div className="relative h-fit bg-slate-200">
-        <h1 className="relative text-center text-6xl mb-10 pt-4">
+      <div className="relative h-fit bg-primary">
+        <h1 className="relative text-center text-6xl mb-10 pt-4 text-zinc-100">
           My Projects
         </h1>
 
@@ -31,8 +31,8 @@ export default function Projects() {
           direction={Direction.Right}
         />
         <Project
-          name="SAGE2D"
-          description="A game engine written using OpenGL and SDL. Contains an ECS, scripting engine & a visual editor"
+          name="SAGE 2D"
+          description="A game engine written using OpenGL and SDL. Contains an ECS, scripting engine & a visual editor."
           link="https://github.com/notSanil/SAGE2D"
           image={sage}
           direction={Direction.Left}
