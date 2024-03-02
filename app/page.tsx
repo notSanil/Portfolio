@@ -30,20 +30,20 @@ export default function Home() {
 
         <h1
           className={
-            "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[5vw] transition-opacity duration-500 z-[3] text-white pointer-events-none " +
+            "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl md:text-[5vw] transition-opacity duration-500 z-[3] text-white pointer-events-none " +
             (enabled ? "" : "opacity-0")
           }
         >
           Hi! My name is <br></br>
           <span
-            className={`${dancingScript.className} text-[2em]/[0.9em] text-blue-chill-bright -translate-x-0`}
+            className={`${dancingScript.className} text-8xl md:text-[2em]/[0.9em] text-blue-chill-bright -translate-x-0`}
           >
             {" "}
             Sanil
           </span>
         </h1>
 
-        {<Navigation callback={tileClickCallback} enabled={!enabled} />}
+        <Navigation callback={tileClickCallback} enabled={!enabled} />
       </GradientBackground>
     </main>
   );

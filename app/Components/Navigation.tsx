@@ -9,58 +9,43 @@ interface NavigationProps {
 
 export default function Navigation({ callback, enabled }: NavigationProps) {
   return (
-    <div
+    <ul
       className={
-        "absolute -z-[1] h-screen w-screen grid grid-cols-3 transition-opacity duration-500 grid-rows-3 overflow-hidden " +
+        "absolute -z-[1] h-screen w-screen grid grid-cols-1 md:grid-cols-3 transition-opacity duration-500 grid-rows-4 md:grid-rows-3 overflow-hidden " +
         (enabled ? null : "opacity-0")
       }
     >
       <NavTile
         link="/about"
-        colStart="col-start-1"
-        colEnd="col-end-3"
-        rowStart="row-start-1"
-        rowEnd="row-end-2"
+        className="md:col-start-1 md:col-end-3 md:row-start-1 md:row-end-2"
       >
         About.
       </NavTile>
 
       <NavTile
         link="/projects"
-        colStart="col-start-3"
-        colEnd="col-end-4"
-        rowStart="row-start-1"
-        rowEnd="row-end-3"
+        className="md:col-start-3 md:col-end-4 md:row-start-1 md:row-end-3"
       >
         Projects.
       </NavTile>
 
       <NavTile
         link="/blogs"
-        colStart="col-start-1"
-        colEnd="col-end-2"
-        rowStart="row-start-2"
-        rowEnd="row-end-4"
+        className="md:col-start-1 md:col-end-2 md:row-start-2 md:row-end-4"
       >
         Blogs.
       </NavTile>
 
       <NavTile
         link="/contact"
-        colStart="col-start-2"
-        colEnd="col-end-4"
-        rowStart="row-start-3"
-        rowEnd="row-end-4"
+        className="md:col-start-2 md:col-end-4 md:row-start-3 md:row-end-4"
       >
         Contact.
       </NavTile>
 
       <NavTile
         link=""
-        colStart="col-start-2"
-        colEnd="col-end-3"
-        rowStart="row-start-2"
-        rowEnd="row-end-3"
+        className="hidden md:block md:col-start-2 md:col-end-3 md:row-start-2 md:row-end-3"
       >
         <Image
           src={logo}
@@ -68,6 +53,6 @@ export default function Navigation({ callback, enabled }: NavigationProps) {
           className="h-full left-1/2 relative p-4 -translate-x-1/2"
         />
       </NavTile>
-    </div>
+    </ul>
   );
 }

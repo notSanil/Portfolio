@@ -85,8 +85,9 @@ export default function Grid({ callback }: GridProps) {
     }
   }, [isPresent]);
 
-  const numRows = Math.floor(windowDimensions.width / 100);
-  const numCols = Math.floor(windowDimensions.height / 100);
+  const tileSize = windowDimensions.width > 800 ? 100 : 80;
+  const numRows = Math.floor(windowDimensions.width / tileSize);
+  const numCols = Math.floor(windowDimensions.height / tileSize);
 
   const renderTile = (key: number) => {
     return (
