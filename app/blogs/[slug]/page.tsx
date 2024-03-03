@@ -1,9 +1,8 @@
 import Navbar, { Pages } from "@/app/Components/Navbar";
 import { getPostFromSlug, getSortedPostsData } from "@/lib/posts";
-import Markdown from "react-markdown";
-import remarkBreaks from "remark-breaks";
-import style from "./markdown-styles.module.css";
 import { notFound } from "next/navigation";
+import "highlight.js/styles/github-dark.css";
+import Article from "@/app/Components/Article";
 
 interface BlogParams {
   params: { slug: string };
@@ -29,12 +28,7 @@ export default function Blog({ params }: BlogParams) {
         <div className="text-center text-5xl mb-4 text-zinc-100">
           {post.title}
         </div>
-        <Markdown
-          remarkPlugins={[remarkBreaks]}
-          className={`${style.reactMarkdown} text-zinc-100`}
-        >
-          {post.content}
-        </Markdown>
+        <Article content={post.content} />
       </div>
     </main>
   );
