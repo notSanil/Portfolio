@@ -14,8 +14,8 @@ export default function Contact() {
               waving_hand
             </span>
           </div>
-          <div className="relative w-1/2 left-1/4 text-4xl">GET IN TOUCH!</div>
-          <div className="text-lg w-1/3 left-1/3 relative my-5">
+          <div className="relative md:w-1/2 m-auto text-4xl">GET IN TOUCH!</div>
+          <div className="text-lg md:w-1/3 m-auto relative my-5">
             Do you want to discuss a project or just have a chat, feel free to
             drop an email!
           </div>

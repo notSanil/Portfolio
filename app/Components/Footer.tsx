@@ -31,7 +31,7 @@ export default function Footer() {
         />
       </ul>
 
-      <div className="text-center">
+      <div className="text-center mb-2">
         <small>© Sanil Gupta {new Date().getFullYear()}</small>
       </div>
     </footer>
