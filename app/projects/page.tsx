@@ -1,4 +1,5 @@
-import Navbar, { Pages } from "../Components/Navbar";
+import Navbar from "../Components/Navbar";
+import { Pages } from "@/lib/Pages";
 import Project, { Direction } from "../Components/Project";
 import acmImage from "@/public/ACMWebsite.png";
 import codeZone from "@/public/CodeZone.png";

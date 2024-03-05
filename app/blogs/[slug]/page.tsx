@@ -1,8 +1,9 @@
-import Navbar, { Pages } from "@/app/Components/Navbar";
+import Navbar from "@/app/Components/Navbar";
 import { getPostFromSlug, getSortedPostsData } from "@/lib/posts";
 import { notFound } from "next/navigation";
 import "highlight.js/styles/github-dark.css";
 import Article from "@/app/Components/Article";
+import { Pages } from "@/lib/Pages";
 
 interface BlogParams {
   params: { slug: string };

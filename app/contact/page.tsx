@@ -1,5 +1,6 @@
 import Link from "next/link";
-import Navbar, { Pages } from "../Components/Navbar";
+import Navbar from "../Components/Navbar";
+import { Pages } from "@/lib/Pages";
 import Footer from "../Components/Footer";
 
 export default function Contact() {

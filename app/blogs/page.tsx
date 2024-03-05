@@ -1,5 +1,6 @@
 import { getSortedPostsData } from "@/lib/posts";
-import Navbar, { Pages } from "../Components/Navbar";
+import Navbar from "../Components/Navbar";
+import { Pages } from "@/lib/Pages";
 import Post from "../Components/Post";
 
 export default function Blogs() {

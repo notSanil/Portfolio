@@ -1,7 +1,8 @@
 import Image from "next/image";
 import profilePic from "@/public/ProfilePic-square.png";
 import Link from "next/link";
-import Navbar, { Pages } from "../Components/Navbar";
+import Navbar from "../Components/Navbar";
+import { Pages } from "@/lib/Pages";
 
 export default function AboutMe() {
   return (
