@@ -10,7 +10,7 @@ export default function NavTile({ link, children, className }: NavTileParams) {
   return (
     <li
       className={
-        `${className} relative bg-white bg-opacity-15 underline decoration-2 decoration-white underline-offset-auto m-2 rounded-sm ` +
+        `${className} relative bg-white bg-opacity-15 underline decoration-2 decoration-zinc-100 underline-offset-auto m-2 rounded-sm ` +
         (link.length > 0 ? "hover:bg-black hover:bg-opacity-15" : null)
       }
     >

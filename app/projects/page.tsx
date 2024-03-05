@@ -12,7 +12,7 @@ export default function Projects() {
       <Navbar page={Pages.Projects} />
 
       <div className="relative h-fit bg-primary">
-        <h1 className="relative text-center text-6xl mb-10 pt-4 text-zinc-100">
+        <h1 className="relative text-center text-4xl md:text-6xl mb-10 pt-4 text-zinc-100">
           My Projects
         </h1>
 
