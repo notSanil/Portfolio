@@ -3,6 +3,8 @@ import type { Config } from "tailwindcss";
 const titlePrimary = "#6200ea";
 const titleSecondary = "#ec407a";
 
+const plugin = require("tailwindcss/plugin");
+
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -55,6 +57,14 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    plugin(function ({ addVariant }: { addVariant: any }) {
+      addVariant(
+        "prose-inline-code",
+        '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))'
+      );
+    }),
+  ],
 };
 export default config;
