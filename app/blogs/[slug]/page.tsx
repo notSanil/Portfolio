@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import "highlight.js/styles/github-dark.css";
 import Article from "@/app/Components/Article";
 import { Pages } from "@/lib/Pages";
+import Footer from "@/app/Components/Footer";
 
 interface BlogParams {
   params: { slug: string };
@@ -31,6 +32,7 @@ export default function Blog({ params }: BlogParams) {
         </div>
         <Article content={post.content} />
       </div>
+      <Footer mail={true} />
     </main>
   );
 }

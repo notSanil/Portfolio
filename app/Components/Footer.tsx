@@ -4,8 +4,13 @@ import github from "./Icons/github.svg";
 import linkedin from "./Icons/linkedin-in.svg";
 import instagram from "./Icons/instagram.svg";
 import codeforces from "./Icons/codeforces.svg";
+import Mail from "./Icons/mail.svg";
 
-export default function Footer() {
+interface FooterProps {
+  mail?: boolean;
+}
+
+export default function Footer({ mail = false }: FooterProps) {
   return (
     <footer className="bg-blue-chill-950 border-t border-blue-chill-600 min-h-16 flex-1 text-white">
       <ul className="text-center mt-6">
@@ -29,6 +34,13 @@ export default function Footer() {
           src={instagram}
           alt="Instagram"
         />
+        {mail ? (
+          <FooterButton
+            link="mailto:sanilg566@gmail.com"
+            src={Mail}
+            alt="Mail"
+          />
+        ) : null}
       </ul>
 
       <div className="text-center mb-2">
