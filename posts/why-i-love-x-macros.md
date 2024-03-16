@@ -198,3 +198,6 @@ Macros by themselves are hard to debug, and adding multiple defines, and undefin
 Both [GCC](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html#index-E) and [Visual Studio](https://stackoverflow.com/a/277267) come with inbuilt options to output the preprocessed files. Loading this file up into your editor *should* fire up the intellisense and allow you to see what's happening under the hood.
 
 I do suggest removing other `#include`s wherever possible since some header files (such as `iostream`) can be thousands of lines long, making it hard to see what part of the file is your code.
+
+---
+Full Code: [Github](https://gist.github.com/notSanil/eaad137fc1994cc048939fbab050ec38)
