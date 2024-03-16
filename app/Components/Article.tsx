@@ -10,7 +10,7 @@ const rubik = Rubik({ weight: "300", subsets: ["latin"] });
 
 import Markdown from "react-markdown";
 import { useEffect } from "react";
-import { Roboto, Rubik } from "next/font/google";
+import { Rubik } from "next/font/google";
 
 interface ArticleParams {
   content: string;
@@ -24,10 +24,10 @@ export default function Article({ content }: ArticleParams) {
   return (
     <article
       className={
-        "prose prose-invert prose-inline-code:rounded prose-inline-code:bg-gray-600 \
-        prose-inline-code:before:invisible prose-inline-code:after:invisible \
-        prose-inline-code:border prose-inline-code:border-gray-600 mx-auto prose-lg " +
-        rubik.className
+        "prose prose-invert prose-inlineCode prose-inline:bg-gray-600 \
+        prose-strong:text-blue-chill-400 prose-em:text-[#f0d2c8] \
+        prose-inline:border-gray-600 prose-quoteless hover:prose-a:text-blue-chill-600 \
+        prose-p:text-blue-chill-50 mx-auto prose-lg " + rubik.className
       }
     >
       <Markdown>{content}</Markdown>

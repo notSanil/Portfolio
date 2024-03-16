@@ -55,13 +55,28 @@ const config: Config = {
           bright: "#21c6d6",
         },
       },
+      typography: {
+        quoteless: {
+          css: {
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:first-of-type::after": { content: "none" },
+          },
+        },
+        inlineCode: {
+          css: {
+            ":not(pre)>code::before": { content: "none" },
+            ":not(pre)>code::after": { content: "none" },
+            ":not(pre)>code": { borderWidth: "2px", borderRadius: "0.25rem" },
+          },
+        },
+      },
     },
   },
   plugins: [
     require("@tailwindcss/typography"),
     plugin(function ({ addVariant }: { addVariant: any }) {
       addVariant(
-        "prose-inline-code",
+        "prose-inline",
         '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))'
       );
     }),

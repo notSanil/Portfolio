@@ -13,16 +13,16 @@ To understand how X macros work, we first need to understand how the C/C++ compi
 - Linking
 
 Of these three phases, the preprocessing phase is of our primary interest when working with macros. Let's take a closer look at it.
-### The preprocessor
+## The preprocessor
 The C++ pre-processor is fairly simple, it has a few directives available to it which instruct it to do certain things (mostly copy pasting). Of these, the three that we'll need are `#include`, `#define`, and `#undef`.
 
-#### \#include
+### \#include
 The include directive is dead simple. All it does is a bit of copy and paste. The pre-processor tries to find the file written after \#include, and if it's successful, it just copies and pastes the entire file at the line number. It is a common beginner misconception that the only files that \#include works on are header(.h) files, but the truth is, the pre-processor is blind to file extensions. All it cares about are the file names, if it finds it, it will copy-paste it. 
 
 This means that you can give some special files different extensions, and the preprocessor will happily \#include them. 
 > Remember this, as this will be useful later
 
-#### \#define
+### \#define
 This directive is also another form of copy paste that the C++ pre-processor gives you. It allows you to take certain tokens (as a general rule, all space separated words are tokens though there are exceptions), and substitute them with **something else**. That something else can be literally anything. For example,
 ```cpp
 #define Token This Is Some Giberrish
@@ -60,7 +60,7 @@ token1 + token2
 
 Copy & Paste, **that's all it is**. Code validity is up to the compiling stage, which comes **after** pre-processing.
 
-#### \#undef
+### \#undef
 The \#undef directive is a bit special, in that it asks the pre-processor to **remove** a macro definition defined by \#define. The preprocessor maintains a list of all the macros it has seen in a single *compilation unit*. A compilation unit is essentially what gets sent to the next stage of the compiler. For most cases, a single .c/.cpp file forms a compilation unit.
 
 This means that any macros in any of your \#include-d files **will** carry over to other files where that file is included. It also means that in case you have multiple definitions of a macro, **only the last seen one** remains.
@@ -76,10 +76,10 @@ will **not** compile. The compiler will complain about `MyCoolMacro` being undef
 
 This allows us to use a single macro for multiple uses within a single file. For instance, a file where our enum is defined.
 
-### Putting it all together
+## Putting it all together
 Armed with all this knowledge, we can start supercharging our enums with some neat quality of life features. We'll run through a small example of creating an enum that contains a video game character that can have a few potions applied on it that enhance it's abilities. We'll call that enum `Effects`.
 
-#### Defining our enum
+### Defining our enum
 Because we'll be using X-macros, the definition of our enum will be slightly different to the way you've normally defined them. We'll make **two** files, one for containing the elements of our enum, the other for containing the associated functions.
 
 You can name your first file anything(remember that the preprocessor does not care about file names/extensions), I usually like to name mine `<Enum>.defs`, so for our case I'll call it `Effects.defs`.
@@ -102,7 +102,7 @@ enum class Effects
 {
 	#include "Effects.def"
 };
-#undef
+#undef EFFECT
 ```
 
 Let's break this down step-by-step,
@@ -113,7 +113,7 @@ Next, we \#include our definitions file. We specially prepared this file to use 
 
 Finally, we \#undef-ed the macro because we will be using it again a few lines later.
 
-#### Counting the number of elements
+### Counting the number of elements
 If the effects in our game were unchanging, it would be simple to just the hard code the number of elements in the enum to 5. But what if you want to add more effects, such as lightning, or cold. This method of hard coding values quickly becomes error prone and is best avoided for multi-person projects anyway. X macros provide a convenient way to count the number of elements with **no runtime cost**.
 
 In our `Effects.h` file:
@@ -123,14 +123,14 @@ static constexpr int NumberOfEffects()
 	return 0
 	#define EFFECT(name, position) +1
 	#include "Effects.def"
-	#undef
+	#undef EFFECT
 ;
 }
 ```
 
 The magic again lies in our macro definition, what we've done here is that for each element in our definitions file, we substitute a +1. So the overall expression becomes 0 + 1 + 1 ... +1. The C++ compiler is smart enough to figure out that this definition has some constant value that can be evaluated at compile time, and along with `constexpr` is able to make **compile-time substitutions** where ever needed.
 
-#### Converting elements to strings
+### Converting elements to strings
 To convert this enum to string, we'll create an `std::array<char*, maxSize>` to essentially create a lookup dictionary. You may use some other data structure that is more efficient in terms of its memory footprint, but I wanted something that could reside on the stack rather than the heap.
 
 The first step to creating this map is to figure out the `maxSize` number that our array needs to be sized to. We can't simply use the total number of elements, as in our enum, the 'Water' effect is at position 4, and the 'Earth' effect is at position 8. So we need this array to have a size of atleast 9. And to figure out the maximum element in our enum, we are going to use, you guessed it, some more macro magic.
@@ -173,26 +173,26 @@ std::array<T, n> sparse_array(std::initializer_list<std::pair<size_t, T>> inits)
 	return result;
 }
 
-#define EFFECTS(name, number) {number, #name}
+#define EFFECT(name, number) {number, #name}
 
 std::array<char*, largestElem + 1> KeyCodeStrings = sparse_array<char*, largestElem + 1>({
 	#include "Effects.def"
 });
 
-#undef EFFECTS
+#undef EFFECT
 ```
 
 This code does a couple of things, first off, the macro we define converts each element into its string representation. The `#` is a special preprocessor directive that instructs the preprocessor to *stringify* the argument. What that means here, is that the **name** of every effect will be converted into its respective string representation by the preprocessor. 
 
 We then send off all the strings (along with their respective positions) to the sparse array function, that iterates over every element, and sets the respective position with the correct name.
 
-### Pros & Cons
+## Pros & Cons
 1. This usage of X macros to supercharge enums is great especially if you're adding or deleting elements to the enums frequently as all our macro magic will just take care of it whenever you recompile.
 2. While I've only used X macros in the context of enums here, they are powerful tools for other things as well. Pretty much anytime you need to repeat lots of code with small variations, macros and templates are your friends.
 3. X macros while may seem free of cost, do come at the cost of developer time. Lots of macros, and templates, and compile time hacks do cost you. **They cost you compile time**. If your project gets big enough, X macros can come to haunt you with their significant increase in compile times. However, if your macros don't change very often, then that hit to compile time may just be a one off thing.
 4. You may run into extensibility issues. In case you want to add another property to your X macros, you will need to change **every** define that uses that macro. You should only really use them when you are certain that changes to the structure of the macro will be minimal.
 
-### Debugging tips
+## Debugging tips
 Macros by themselves are hard to debug, and adding multiple defines, and undefines becomes even harder. To make matters worse, intellisense is usually useless in debugging X macros. In case you can't figure out what's going wrong, you can output the preprocessed file and load it up in an editor of your choice to take a closer look at what the preprocessor is doing to your code. 
 
 Both [GCC](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html#index-E) and [Visual Studio](https://stackoverflow.com/a/277267) come with inbuilt options to output the preprocessed files. Loading this file up into your editor *should* fire up the intellisense and allow you to see what's happening under the hood.
