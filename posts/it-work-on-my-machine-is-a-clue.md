@@ -1,0 +1,56 @@
+---
+date: 31/03/2025
+description: The story of how a bug fixing itself on my machine led me down a rabbit-hole of AWS.
+title: When "It works on my Machine" is actually a clue
+---
+
+## The problem
+At my work, we recently migrated our server infra to newer generation AWS servers. In order to do this migration, we tore down the old servers, and deployed our application on the new shiny servers. While doing this migration, we noticed that the *dev* environment that we had setup was working abnormally slow. Worse yet, it was **intermittently** slow, and anyone who has worked in software for more than a minute knows how difficult intermittent issues are to replicate, let alone fix. 
+
+Now in the entire team, I am the only one that uses Firefox, all others used Chrome, or some other Chromium-based browser. What was really puzzling, was that for some reason, on my Firefox browser, the servers would respond **instantly** almost all the time, whereas for any other Chrome browser, they would almost never respond quickly. We would sometimes even load the website parallelly, and we'd get one of two outcomes: either the website would load normally on my browser and slow on other machines, or it would be slow to load on everybody's machines.
+
+Since this was mostly an intermittent issue, and only seemed to happen in the dev environment, no one really paid too much attention to it for a while (we had another UAT environment we leveraged), until about 4 months later when the amount of development really picked up a lot of pace and all of a sudden, one environment to test changes, **and** showcase new features just wasn't cutting it anymore. There would often be times when devs would be waiting for 3 days just to get some time on the UAT servers. 
+
+You might be wondering why we couldn't just merge all the changes into a single UAT environment. We didn't have a CI/CD pipeline yet, and so merging directly into a common branch wasn't an option. The environment was also being used to show demos, and no one wanted to show the CEO something broken because of someone else's half baked code.
+
+Eventually the problem got bad enough that it attracted the attention of a bunch of senior engineers in the company, including the CTO himself. Pretty much everyone tried to diagnose the issue, but came up empty handed. This was partly because no one had extensive experience with AWS. But the main issue was that the people looking into this were so busy, they could only spare a few hours to look into it.
+
+## The solution
+I was then tasked with coordinating with our external dev-ops team to tear down the dev environment, and rebuild it from the scratch up since this seemed like the path of least resistance. And so that is exactly what I did, except that the dev-ops team had something else in mind. 
+
+They weren't ready to just tear down the environment, since in case the issue happened again, we'd have no way to actually fix it again. Worse yet, in case this started happening in production, we'd be absolutely screwed. So they did what any dev-ops team does. They looked at metrics from the AWS cloud watch service, and tried to figure out if the server was showing any unexpected behavior (high CPU/memory utilization, high 5XX status codes etc.). They also set up alerting on that server do they could monitor in case anything happened to it. *Spoiler: The metrics never showed anything wrong.*
+
+Meanwhile, I started looking into the issue at more of a ground level. The first thing I noticed was that usually, the first few loads were incredibly slow, but once one API succeeded, all of them succeeded. I also saw that not only was the API load time slow, it seemingly never actually responded at all.
+
+My first line of suspicion was that the web server is having trouble connecting to the database, and that is why, initially the APIs would never respond. So SSH'd into the server, and started trying to connect to the database via the command line. But the database responded immediately, no matter how many times I tried to connect to it. I even turned the webserver off, in case the server's connection pool somehow made the database responsive, but came empty handed. 
+
+Next, I started looking at the API response times. We use a `Play` web-server, and that automatically logs all the API calls that it receives. To my surprise, the API calls that were slow, never actually appeared on any logs, almost as if they vanished into thin air, whereas the calls that actually did send some response, responded normally, with the timing in line with both UAT and Production (about 50 milliseconds).
+
+This led me to my next path, I wondered, what if the API calls **did** somehow vanish into thin air. So I looked at the server, and the connections it was making with the outside world. I used `netstat -c` to continuously monitor the open ports on the machine, and to my surprise, whenever the APIs did not respond, there would be no open connection to the server either. The calls **were** in fact vanishing, we just had no idea where.
+
+Having eliminated both the database, and the web-server from our list of suspects, our next suspect was `nginx`. `nginx` was deployed on the server, and acted as a barrier between the outside world, and our actual web-server, so surely the problem had to be there. Well, we came empty handed here as well, the `nginx` config on Dev, UAT, and Prod was the exact same (down to the inconsistent tabs and spaces) since they had been copy-pasted from each other.
+
+Going one layer further up, I figured that the DNS was somehow failing, but manually resolving the DNS from `nslookup`, consistently gave me the IP extremely quickly, and to add onto that even my browser network analysis showed that the DNS resolution was in fact succeeding each and every time, in less than a millisecond.
+
+After a couple of days of faffing about like this, I finally turned my eye to the one last place where a bug might have been hiding all along, it was the AWS ELB (Elastic Load Balancer). Even though we only had one server at the time, I knew that there was an ELB deployed in front of it. I never really thought that the ELB would cause any issues though since why would it only drop certain requests, but the let others through happily.
+
+At first I thought that maybe the ELB was somehow pointing to a server that never really existed, and so it routed 50% of the requests to the correct server, and the other half to a ghost server, but checking the rules set on it, it only pointed to one server, which was the correct one. I sat around for a day or two checking pretty much every configuration and reading about it all (since I had no idea how AWS worked), but came up pretty much with nothing to show.
+
+Just as I was about to give up, I thought of checking StackOverflow one last time, almost hoping that the gods of SO would bless me, and give me my solutions. And lo and behold, they actually did! An answer on the website advised to check the subnet configs of the load balancer, since this person had a misconfigured subnet, which would not let requests through.
+
+I opened the AWS console, and checked the subnet configs, and JACKPOT! One of the load balancers had a misconfigured gateway: it was set to a **NAT** gateway which only allows *outbound* connections from the server, whereas it should've been set to an **Internet gateway** which allows both inbound *and* outbound connections. We quickly changed this setting, and within a minute, the entire environment started working like a charm.
+
+## So what the heck happened?!
+To explain what happened, I need to teach you about some AWS fundamentals. Now I am by no means an expert at this, and at the time of writing this, I don't even have an AWS certification. But I did read a whole lot of documentation, so I at least have an understanding of how it works, but there might be nuances I'm still learning. If you need help with your servers, please contact someone more qualified, or wait a few years, hopefully I'll have more knowledge about this stuff by then.
+
+So lets talk about our web-server first. Our web-server was an EC2 (Elastic Compute Cloud) instance, which is a fancy way of saying that it was a Linux computer running inside an AWS datacenter. Now AWS doesn't let its EC2 instances be directly exposed to the internet (or even if it does you shouldn't expose it). You need to go through an ELB (Elastic load balancer), where you can setup rules for it to direct all sorts of traffic to various different servers. This is great if you have an army of servers, especially if they may be torn down, and brought up automatically. But AWS doesn't let you have just one ELB though, you **need** to have at least two ELBs in two availability zones.
+
+This is because Amazon has various datacenters all around the world, but it'd be pretty stupid to keep each data center on just one source of power, internet etc. What if the generator breaks down, and the electricity goes out, or worse, what if someone maliciously takes down the power supply (yes that is a real threat). So AWS does something pretty clever, in each region, they setup *Availability zones*, which are separated from each other physically, but are connected via all sorts of high speed internet, and other networks. This ensures that even something like a flood occurs, at most only one zone goes down.
+
+Now AWS mandates having ALBs (a type of ELB; short for Application load balancer) in multiple availability zones for this exact reason. Even if one ELB goes down, the other **stays online**, and no one gets disrupted. 
+
+In our case, we *also* had these two mandatory ALB's, but one of them was misconfigured. But now, how did this mis-config happen in the first place. 
+
+You see, AWS requires something called subnets for each of its machines, which are essentially used to allocate the IP addresses for those machines, but more crucially are used to access control them. So we had a few subnets too, one for load balancer, one for our EC2 instance, and one for our Database machine. The problem was that these subnets were named very similarly, `subn-dev-db`, `subn-dev` etc. The load balancers were **supposed** to have the `subn-dev` subnet, but one of them was accidentally assigned the `subn-dev-db` which only supported internal communication and would thus drop all the inbound connections from the world.
+
+As for why this worked on firefox better than chrome, I haven't the slightest clue. My best guess is that it is due to the way that both browsers connect to servers. Probably both browsers cache the DNS result for a different amount of time, or perhaps they somehow prefer one load balancer over the other? I am not sure, and to be honest, it could've been dumb luck as well. Most of the time that I connected to the dev servers, I did so *after* someone had been trying to connect with them for a while, and so maybe being mostly second in line, I got routed to the well-behaved ELB more often. Either way, it did make for some fun amusement when someone would show me the issue, and I'd say, "Well it works on my machine".
