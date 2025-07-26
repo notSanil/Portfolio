@@ -29,11 +29,6 @@ export default function Footer({ mail = false }: FooterProps) {
           src={linkedin}
           alt="LinkedIn"
         />
-        <FooterButton
-          link="https://www.instagram.com/notsanil012"
-          src={instagram}
-          alt="Instagram"
-        />
         {mail ? (
           <FooterButton
             link="mailto:sanilg566@gmail.com"

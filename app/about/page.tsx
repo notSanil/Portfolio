@@ -9,7 +9,7 @@ export default function AboutMe() {
     <main className="flex flex-col min-h-screen">
       <Navbar page={Pages.About} />
       <div className="bg-primary p-2 text-center flex-1 text-zinc-100">
-        <h1 className="m-2 text-center w-full text-2xl md:text-[3.5vw]">
+        <h1 className="m-2 text-center w-full text-2xl md:text-[3.5vw] md:leading-[1em]">
           A little bit about me
         </h1>
         <Image
@@ -18,7 +18,7 @@ export default function AboutMe() {
           className="rounded-full mx-auto size-32 md:size-40"
         />
         <div className="mx-4 md:w-1/2 md:m-auto md:p-1">
-          <p className="relative text-center my-4 text-base md:text-[1.4vw]">
+          <p className="relative text-center my-4 text-base md:text-[1.4vw] md:leading-[1em]">
             Hi! My name is Sanil, and I am a software developer with a passion
             for back-end development, & graphics. I am currently a fourth-year
             student at{" "}

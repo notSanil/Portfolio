@@ -1,3 +1,22 @@
+/* Import Tailwind's base, components, and utilities */
+/* Import Tailwind's base, components, and utilities */
+/* Import Tailwind's base, components, and utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom CSS for the Glitch Effect */
+/* Apply this class directly to the <h1> element */
+.logo-glitch {
+    /* Base font styles are now applied via Tailwind classes in HTML */
+    /* text-shadow for subtle chromatic aberration on the main text */
+    text-shadow: 0.06em 0 0 rgba(255, 0, 255, 0.75),
+        -0.025em -0.05em 0 rgba(0, 255, 255, 0.75),
+        0.025em 0.06em 0 rgba(255, 255, 0, 0.75);
+}
+
+/* Apply this class to each <span> word */
+.glitch-text {
+    @apply block relative overflow-hidden;
+    /* Tailwind utilities */
+}

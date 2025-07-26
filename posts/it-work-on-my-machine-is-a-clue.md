@@ -1,5 +1,5 @@
 ---
-date: 31/03/2025
+date: 31-03-2025
 description: The story of how a bug fixing itself on my machine led me down a rabbit-hole of AWS.
 title: When "It works on my Machine" is actually a clue
 ---

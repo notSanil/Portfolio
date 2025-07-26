@@ -1,5 +1,5 @@
 ---
-date: 15/10/2023
+date: 15-10-2023
 description: An optimistic nihilist's views on human lives, and chaos theory.
 title: Hunters, stories, and chaos
 ---

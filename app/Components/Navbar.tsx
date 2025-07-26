@@ -18,8 +18,7 @@ export default function Navbar({ page }: NavbarProps) {
     <nav className="bg-primary text-zinc-100 sticky top-0 flex flex-wrap flex-row justify-between z-10 border-b border-zinc-800 items-center">
       <div className="p-3 ml-4">
         <Link href="/">
-          <Image src={logo} alt="" className="h-6 inline-block w-min mx-2" />
-          <div className="inline-block px-2">Sanil Gupta</div>
+          <div className="logo-glitch px-2">Random Access Rants</div>
         </Link>
       </div>
 
@@ -33,13 +32,9 @@ export default function Navbar({ page }: NavbarProps) {
           (open ? "" : "hidden")
         }
       >
-        <NavItem currentPage={page} referringPage={Pages.About} link="/about" />
+        <NavItem currentPage={page} referringPage={Pages.Home} link="/" />
         <NavItem currentPage={page} referringPage={Pages.Blogs} link="/blogs" />
-        <NavItem
-          currentPage={page}
-          referringPage={Pages.Projects}
-          link="/projects"
-        />
+        <NavItem currentPage={page} referringPage={Pages.About} link="/about" />
         <NavItem
           currentPage={page}
           referringPage={Pages.Contact}

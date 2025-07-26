@@ -1,6 +1,6 @@
 export enum Pages {
-  About,
+  Home,
   Blogs,
-  Projects,
+  About,
   Contact,
 }
