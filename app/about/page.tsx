@@ -24,7 +24,7 @@ export default function AboutMe() {
             <br />
             <br />
             My journey began when I looked at a video on YouTube about making games, and thought to myself,
-            "I should trying doing that". Since then, I have never once completed a game, wrote a somewhat functional
+            &quot;I should trying doing that&quot;. Since then, I have never once completed a game, wrote a somewhat functional
             <Link href={"https://github.com/notSanil/SAGE2D"} className="text-blue-chill-400"> game engine</Link> and,
             got a career writing backend code and posing as a DevOps engineer. I am particularly fascinated by how we can
             make machines that are effectively fancy calculators run the whole world.
