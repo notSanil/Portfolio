@@ -3,7 +3,7 @@ import { Rubik } from "next/font/google";
 import "./globals.css";
 import "./globalicons.css";
 
-const rubik = Rubik({ subsets: ["latin"], weight: "700" });
+const rubik = Rubik({ subsets: ["latin"], weight: ["700", "300"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.randomaccessrants.com'),
@@ -84,7 +84,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-primary">
-      <body className={`${rubik.className} flex flex-col min-h-lvh`}>{children}</body>
+      <body className={`${rubik.className} font-bold flex flex-col min-h-lvh`}>{children}</body>
     </html >
   );
 }
