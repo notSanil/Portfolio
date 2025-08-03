@@ -32,14 +32,22 @@ export function getSortedPostsData() {
   });
 
   return allPostsData.sort((a, b) => {
-    const aDate = new Date(a.date)
-    const bDate = new Date(b.date)
+    const aDate = convertToDate(a.date)
+    const bDate = convertToDate(b.date)
     if (aDate < bDate) {
       return 1;
     } else {
       return -1;
     }
   });
+}
+
+function convertToDate(s: String) {
+  const day = parseInt(s.slice(0, 2))
+  const month = parseInt(s.slice(3, 5))
+  const year = parseInt(s.slice(7))
+
+  return new Date(year, month, day)
 }
 
 export function getPostFromSlug(slug: string) {
